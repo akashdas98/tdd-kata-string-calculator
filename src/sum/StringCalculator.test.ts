@@ -9,5 +9,11 @@ describe("StringCalculator class tests", () => {
     test("Returns 0 when given empty string", () => {
       expect(add("")).toBe(0);
     });
+
+    test("Returns the number when given one number", () => {
+      expect(add("1")).toBe(1);
+      expect(add("57")).toBe(57);
+      expect(add("43")).toBe(43);
+    });
   });
 });

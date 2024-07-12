@@ -1,5 +1,9 @@
 export default class StringCalculator {
   public add(str: string): number {
-    return 0;
+    if (str === "") {
+      return 0;
+    }
+
+    return Number(str);
   }
 }
