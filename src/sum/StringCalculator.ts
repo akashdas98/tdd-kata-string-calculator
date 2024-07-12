@@ -10,11 +10,18 @@ export default class StringCalculator {
     const pattern = new RegExp(`[${delimiters.join("")}]`);
     nums = str.split(pattern);
 
+    const negativeNumbers = nums.filter((n) => Number(n) < 0);
+
+    if (negativeNumbers.length === 1) {
+      throw new Error(`negatives not allowed, value: ${negativeNumbers[0]}`);
+    }
+    if (negativeNumbers.length > 1) {
+      throw new Error(
+        `negatives not allowed, values: ${negativeNumbers.join(", ")}`
+      );
+    }
+
     return nums.reduce((ac, cv) => {
-      const num = Number(cv);
-      if (num < 0) {
-        throw new Error(`negatives not allowed, value: ${num}`);
-      }
       return ac + Number(cv);
     }, 0);
   }
