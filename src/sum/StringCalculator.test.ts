@@ -31,5 +31,10 @@ describe("StringCalculator class tests", () => {
       expect(add("33\n13\n63\n3")).toBe(112);
       expect(add("3,3,5\n13,6\n67\n3,2")).toBe(102);
     });
+
+    test("Returns sum when given multiple numbers separated by custom delimiter", () => {
+      expect(add("//;\n33;13;63;3")).toBe(112);
+      expect(add("//h\n33h13h63h3")).toBe(112);
+    });
   });
 });
