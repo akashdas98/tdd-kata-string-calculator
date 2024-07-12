@@ -63,6 +63,10 @@ describe("StringCalculator class tests", () => {
     test("Custom delimiter of length n", () => {
       expect(add("//[;s,//]\n33;s,//13;s,//63;s,//3")).toBe(112);
     });
+
+    test("Allow multiple custom delimiters", () => {
+      expect(add("//[;s,][ee][k;]\n33;s,13ee63k;3")).toBe(112);
+    });
   });
 
   describe("getCalledCount method returns number of times add has been called.", () => {
