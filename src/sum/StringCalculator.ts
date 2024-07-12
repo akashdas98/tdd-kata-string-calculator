@@ -10,6 +10,12 @@ export default class StringCalculator {
     const pattern = new RegExp(`[${delimiters.join("")}]`);
     nums = str.split(pattern);
 
-    return nums.reduce((ac, cv) => ac + Number(cv), 0);
+    return nums.reduce((ac, cv) => {
+      const num = Number(cv);
+      if (num < 0) {
+        throw new Error(`negatives not allowed, value: ${num}`);
+      }
+      return ac + Number(cv);
+    }, 0);
   }
 }

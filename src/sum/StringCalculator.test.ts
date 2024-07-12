@@ -36,5 +36,11 @@ describe("StringCalculator class tests", () => {
       expect(add("//;\n33;13;63;3")).toBe(112);
       expect(add("//h\n33h13h63h3")).toBe(112);
     });
+
+    test("Throws error when called passing a negative number", () => {
+      expect(() => add("33,-13\n63,3")).toThrow(
+        new Error("negatives not allowed, value: -13")
+      );
+    });
   });
 });
