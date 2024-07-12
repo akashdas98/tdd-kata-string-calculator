@@ -18,7 +18,7 @@ describe("StringCalculator class tests", () => {
     test("Returns sum when given two numbers separated by comma", () => {
       expect(add("28,32")).toBe(60);
       expect(add("99,6")).toBe(105);
-      expect(add("345,1126")).toBe(1471);
+      expect(add("345,126")).toBe(471);
     });
 
     test("Returns sum when given multiple numbers separated by comma", () => {
@@ -49,6 +49,11 @@ describe("StringCalculator class tests", () => {
       expect(() => add("3,3,5\n-13,6\n-67\n3,-2")).toThrow(
         new Error("negatives not allowed, values: -13, -67, -2")
       );
+    });
+
+    test("Ignores numbers greater than 1000", () => {
+      expect(add("24,1003,1000")).toBe(1024);
+      expect(add("1000,1000,999,1001,2000")).toBe(2999);
     });
   });
 
