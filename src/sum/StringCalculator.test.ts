@@ -1,9 +1,8 @@
 import StringCalculator from "./StringCalculator";
 
 describe("StringCalculator class tests", () => {
-  const stringCalculator = new StringCalculator();
-
-  describe("Add function adds two numbers and returns result", () => {
+  describe("add method adds two numbers and returns result", () => {
+    const stringCalculator = new StringCalculator();
     const add: (str: string) => number = stringCalculator.add;
 
     test("Returns 0 when given empty string", () => {
@@ -50,6 +49,15 @@ describe("StringCalculator class tests", () => {
       expect(() => add("3,3,5\n-13,6\n-67\n3,-2")).toThrow(
         new Error("negatives not allowed, values: -13, -67, -2")
       );
+    });
+  });
+
+  describe("getCalledCount method returns number of times add has been called.", () => {
+    test("Returns zero if add hasn't been called yet", () => {
+      const stringCalculator = new StringCalculator();
+      const getCalledCount = stringCalculator.getCalledCount;
+
+      expect(getCalledCount()).toBe(0);
     });
   });
 });

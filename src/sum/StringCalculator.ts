@@ -25,4 +25,8 @@ export default class StringCalculator {
       return ac + Number(cv);
     }, 0);
   }
+
+  public getCalledCount(): number {
+    return 0;
+  }
 }
