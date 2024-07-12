@@ -14,14 +14,21 @@ export default class StringCalculator {
       let delimiter: string;
       let listStartIndex: number;
       if (str.startsWith("//[")) {
-        const delimiterEndIndex: number = str.indexOf("]");
-        delimiter = str.slice(3, delimiterEndIndex);
-        listStartIndex = delimiterEndIndex + 1;
+        let delimiterStartIndex = 3;
+        let delimiterEndIndex: number = str.indexOf("]");
+        while (delimiterEndIndex !== -1) {
+          delimiter = str.slice(delimiterStartIndex, delimiterEndIndex);
+          delimiters.push(delimiter);
+          delimiterStartIndex = delimiterEndIndex + 2;
+          delimiterEndIndex = str.indexOf("]", delimiterStartIndex);
+        }
+        listStartIndex = delimiterStartIndex;
       } else {
         delimiter = str[2];
+        delimiters.push(delimiter);
         listStartIndex = 3;
       }
-      delimiters.push(delimiter);
+
       str = str.slice(listStartIndex);
     }
 
