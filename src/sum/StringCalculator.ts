@@ -11,12 +11,23 @@ export default class StringCalculator {
     const delimiters = [",", "\n"];
     let nums: string[] = [];
     if (str.startsWith("//")) {
-      delimiters.push(str[2]);
-      str = str.slice(3);
+      let delimiter: string;
+      let listStartIndex: number;
+      if (str.startsWith("//[")) {
+        const delimiterEndIndex: number = str.indexOf("]");
+        delimiter = str.slice(3, delimiterEndIndex);
+        listStartIndex = delimiterEndIndex + 1;
+      } else {
+        delimiter = str[2];
+        listStartIndex = 3;
+      }
+      delimiters.push(delimiter);
+      str = str.slice(listStartIndex);
     }
 
-    const pattern = new RegExp(`[${delimiters.join("")}]`);
-    nums = str.split(pattern);
+    delimiters.forEach((delimiter) => (str = str.split(delimiter).join(",")));
+
+    nums = str.split(",");
 
     const negativeNumbers = nums.filter((n) => Number(n) < 0);
 

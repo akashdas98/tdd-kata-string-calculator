@@ -55,6 +55,14 @@ describe("StringCalculator class tests", () => {
       expect(add("24,1003,1000")).toBe(1024);
       expect(add("1000,1000,999,1001,2000")).toBe(2999);
     });
+
+    test("Custom delimiter of length 2", () => {
+      expect(add("//[;s]\n33;s13;s63;s3")).toBe(112);
+    });
+
+    test("Custom delimiter of length n", () => {
+      expect(add("//[;s,//]\n33;s,//13;s,//63;s,//3")).toBe(112);
+    });
   });
 
   describe("getCalledCount method returns number of times add has been called.", () => {
