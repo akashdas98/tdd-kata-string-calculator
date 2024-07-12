@@ -1,5 +1,13 @@
 export default class StringCalculator {
+  private count: number = 0;
+
+  constructor() {
+    this.add = this.add.bind(this);
+    this.getCalledCount = this.getCalledCount.bind(this);
+  }
+
   public add(str: string): number {
+    this.count++;
     const delimiters = [",", "\n"];
     let nums: string[] = [];
     if (str.startsWith("//")) {
@@ -27,6 +35,6 @@ export default class StringCalculator {
   }
 
   public getCalledCount(): number {
-    return 0;
+    return this.count;
   }
 }
