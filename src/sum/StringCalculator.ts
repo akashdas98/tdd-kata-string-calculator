@@ -4,6 +4,12 @@ export default class StringCalculator {
       return 0;
     }
 
-    return Number(str);
+    const nums = str.split(",");
+
+    if (nums.length === 1) {
+      return Number(nums[0]);
+    }
+
+    return Number(nums[0]) + Number(nums[1]);
   }
 }
