@@ -30,7 +30,13 @@ export default class StringCalculator {
     }
 
     return nums.reduce((ac, cv) => {
-      return ac + Number(cv);
+      const num = Number(cv);
+
+      if (num > 1000) {
+        return ac;
+      }
+
+      return ac + num;
     }, 0);
   }
 
