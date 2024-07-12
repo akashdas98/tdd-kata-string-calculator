@@ -42,5 +42,14 @@ describe("StringCalculator class tests", () => {
         new Error("negatives not allowed, value: -13")
       );
     });
+
+    test("Throws error when called passing multiple negative numbers", () => {
+      expect(() => add("//x\n24x-3x-5x3")).toThrow(
+        new Error("negatives not allowed, values: -3, -5")
+      );
+      expect(() => add("3,3,5\n-13,6\n-67\n3,-2")).toThrow(
+        new Error("negatives not allowed, values: -13, -67, -2")
+      );
+    });
   });
 });
