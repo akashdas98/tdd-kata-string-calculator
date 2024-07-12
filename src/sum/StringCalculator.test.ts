@@ -26,5 +26,10 @@ describe("StringCalculator class tests", () => {
       expect(add("9,36,73")).toBe(118);
       expect(add("3,3,5,13,6,67,3,2")).toBe(102);
     });
+
+    test("Returns sum when given multiple numbers separated by comma or new line", () => {
+      expect(add("33\n13\n63\n3")).toBe(112);
+      expect(add("3,3,5\n13,6\n67\n3,2")).toBe(102);
+    });
   });
 });

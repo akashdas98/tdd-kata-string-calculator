@@ -1,6 +1,6 @@
 export default class StringCalculator {
   public add(str: string): number {
-    const nums = str.split(",");
+    const nums = str.split(/[,\n]/);
     return nums.reduce((ac, cv) => ac + Number(cv), 0);
   }
 }
