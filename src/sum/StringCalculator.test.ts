@@ -69,5 +69,20 @@ describe("StringCalculator class tests", () => {
 
       expect(getCalledCount()).toBe(1);
     });
+
+    test("Returns n if add has been called n times", () => {
+      const stringCalculator = new StringCalculator();
+      const add = stringCalculator.add;
+      const getCalledCount = stringCalculator.getCalledCount;
+
+      add("");
+      add("");
+      expect(getCalledCount()).toBe(2);
+
+      add("");
+      add("");
+      add("");
+      expect(getCalledCount()).toBe(5);
+    });
   });
 });
