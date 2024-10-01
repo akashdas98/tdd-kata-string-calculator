@@ -10,51 +10,56 @@ export default class StringCalculator {
     this.count++;
     const delimiters = [",", "\n"];
     let nums: string[] = [];
-    if (str.startsWith("//")) {
-      let delimiter: string;
-      let listStartIndex: number;
-      if (str.startsWith("//[")) {
-        let delimiterStartIndex = 3;
-        let delimiterEndIndex: number = str.indexOf("]");
-        while (delimiterEndIndex !== -1) {
-          delimiter = str.slice(delimiterStartIndex, delimiterEndIndex);
-          delimiters.push(delimiter);
-          delimiterStartIndex = delimiterEndIndex + 2;
-          delimiterEndIndex = str.indexOf("]", delimiterStartIndex);
-        }
-        listStartIndex = delimiterStartIndex;
-      } else {
-        delimiter = str[2];
-        delimiters.push(delimiter);
-        listStartIndex = 3;
-      }
+    let listStartIndex = 0;
 
+    if (str.startsWith("//")) {
+      listStartIndex = this.extractDelimiters(str, delimiters);
       str = str.slice(listStartIndex);
     }
 
-    delimiters.forEach((delimiter) => (str = str.split(delimiter).join(",")));
+    nums = this.splitNumbers(str, delimiters);
+    this.checkForNegatives(nums);
 
-    nums = str.split(",");
+    return this.calculateSum(nums);
+  }
 
+  private extractDelimiters(str: string, delimiters: string[]): number {
+    if (str.startsWith("//[")) {
+      let delimiterStartIndex = 3;
+      let delimiterEndIndex = str.indexOf("]");
+      while (delimiterEndIndex !== -1) {
+        const delimiter = str.slice(delimiterStartIndex, delimiterEndIndex);
+        delimiters.push(delimiter);
+        delimiterStartIndex = delimiterEndIndex + 2;
+        delimiterEndIndex = str.indexOf("]", delimiterStartIndex);
+      }
+      return delimiterStartIndex;
+    } else {
+      delimiters.push(str[2]);
+      return 3;
+    }
+  }
+
+  private splitNumbers(str: string, delimiters: string[]): string[] {
+    delimiters.forEach((delimiter) => {
+      str = str.split(delimiter).join(",");
+    });
+    return str.split(",");
+  }
+
+  private checkForNegatives(nums: string[]): void {
     const negativeNumbers = nums.filter((n) => Number(n) < 0);
 
-    if (negativeNumbers.length === 1) {
-      throw new Error(`negatives not allowed, value: ${negativeNumbers[0]}`);
+    if (negativeNumbers.length > 0) {
+      const message = `negatives not allowed, value${negativeNumbers.length > 1 ? "s" : ""}: ${negativeNumbers.join(", ")}`;
+      throw new Error(message);
     }
-    if (negativeNumbers.length > 1) {
-      throw new Error(
-        `negatives not allowed, values: ${negativeNumbers.join(", ")}`
-      );
-    }
+  }
 
-    return nums.reduce((ac, cv) => {
-      const num = Number(cv);
-
-      if (num > 1000) {
-        return ac;
-      }
-
-      return ac + num;
+  private calculateSum(nums: string[]): number {
+    return nums.reduce((total, currentValue) => {
+      const num = Number(currentValue);
+      return num > 1000 ? total : total + num;
     }, 0);
   }
 
